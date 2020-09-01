@@ -18,6 +18,13 @@ The code was originally based on Michael Bosworth's [express-saml](https://githu
 
 Passport-SAML has been tested to work with Onelogin, Okta, Shibboleth, [SimpleSAMLphp](http://simplesamlphp.org/) based Identity Providers, and with [Active Directory Federation Services](http://en.wikipedia.org/wiki/Active_Directory_Federation_Services).
 
+## Issue / Contribution guidelines 
+The fork is maintained by DVV teams for internal use. Active support and long term commitment for maintaining the library cannot be promised.
+All non-suomifi-passport-saml specific changes added by the team will be contributed to the upstream.  
+
+- Anyone and everyone is welcome to open issues regarding suomifi-passport-saml specific functionality.
+- All non-fork-specific issues, support requests, improvements etc. should be contributed to the upstream [passport-saml](https://github.com/node-saml/passport-saml) repository.
+
 ## Installation
 
     $ npm install suomifi-passport-saml
