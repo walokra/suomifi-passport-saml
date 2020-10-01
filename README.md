@@ -85,7 +85,10 @@ The options passed when the `MultiSamlStrategy` is initialized are also passed a
 e.g. If you provide an `issuer` on `MultiSamlStrategy`, this will be also a default value for every provider.
 You can override these defaults by passing a new value through the `getSamlOptions` function.
 
-Using multiple providers supports `validateInResponseTo`, but all the `InResponse` values are stored on the same Cache. This means, if you're using the default `InMemoryCache`, that all providers have access to it and a provider might get its response validated against another's request. [Issue Report](!https://github.com/bergie/passport-saml/issues/334). To amend this you should provide a different cache provider per SAML provider, through the `getSamlOptions` function.
+Using multiple providers supports `validateInResponseTo`, but all the `InResponse` values are stored on the same Cache. This means, if you're using the default `InMemoryCache`, that all providers have access to it and a provider might get its response validated against another's request. [Issue Report](!https://github.com/node-saml/passport-saml/issues/334). To amend this you should provide a different cache provider per SAML provider, through the `getSamlOptions` function.
+
+> :warning: **There's a race condition [bug](https://github.com/node-saml/passport-saml/issues/425) in versions < 1.3.3 which makes it vulnerable to DOS attacks**: Please use > 1.3.3 if you want to use this issue
+
 
 #### The profile object:
 
@@ -132,7 +135,7 @@ type Profile = {
   * `identifierFormat`: if truthy, name identifier format to request from identity provider (default: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`)
   * `acceptedClockSkewMs`: Time in milliseconds of skew that is acceptable between client and server when checking `OnBefore` and `NotOnOrAfter` assertion condition validity timestamps.  Setting to `-1` will disable checking these conditions entirely.  Default is `0`.
   * `attributeConsumingServiceIndex`: optional `AttributeConsumingServiceIndex` attribute to add to AuthnRequest to instruct the IDP which attribute set to attach to the response ([link](http://blog.aniljohn.com/2014/01/data-minimization-front-channel-saml-attribute-requests.html))
-  * `disableRequestedAuthnContext`: if truthy, do not request a specific authentication context. This is [known to help when authenticating against Active Directory](https://github.com/bergie/passport-saml/issues/226) (AD FS) servers.
+  * `disableRequestedAuthnContext`: if truthy, do not request a specific authentication context. This is [known to help when authenticating against Active Directory](https://github.com/node-saml/passport-saml/issues/226) (AD FS) servers.
   * `authnContext`: if truthy, name identifier format to request auth context (default: `urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport`); array of values is also supported
   * `RACComparison`: Requested Authentication Context comparison type. Possible values are 'exact','minimum','maximum','better'. Default is 'exact'.
 
