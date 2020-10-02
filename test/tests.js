@@ -1386,7 +1386,7 @@ describe( 'passport-saml /', function() {
           const nameQualifier = 'https://idp.example.org/idp/saml'
           const spNameQualifier = 'https://sp.example.org/sp/entity'
           const format = 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'
-          const xml = 
+          const xml =
           '<Response>' +
             '<saml2:Assertion xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" Version="2.0">' +
               '<saml2:AttributeStatement>' +
@@ -1402,7 +1402,13 @@ describe( 'passport-saml /', function() {
           '</Response>';
           var base64xml = Buffer.from( xml ).toString('base64');
           var container = { SAMLResponse: base64xml };
-          var samlObj = new SAML();
+
+          // Add suomifi additions related options to skip top level signature failure
+          var samlConfig = {
+            suomifiAdditions: suomifiAdditionsOptions
+          };
+          var samlObj = new SAML(samlConfig);
+
           samlObj.validatePostResponse( container, function( err, profile, logout ) {
             should.not.exist( err );
             const eptid = profile['urn:oid:1.3.6.1.4.1.5923.1.1.1.10'];
@@ -1415,7 +1421,6 @@ describe( 'passport-saml /', function() {
           });
         });
       });
-
 
     });
 
